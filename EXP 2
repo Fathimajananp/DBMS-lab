@@ -1,0 +1,180 @@
+                  EXPERIMENT 2
+                  
+              DDL commands- ALTER & DROP   
+
+
+QUESTION 1
+
+
+Add a column ‘SSN’ at the first position in the table EMPLOYEE
+
+
+ANSWER:
+
+
+alter table employee add ssn varchar(25) first;
+
+
+ desc employee;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| ssn       | varchar(25) | YES  |     | NULL    |       |
+| emp_id    | int(11)     | YES  |     | NULL    |       |
+| name      | varchar(20) | YES  |     | NULL    |       |
+| city      | varchar(30) | YES  |     | NULL    |       |
+| dob       | date        | YES  |     | NULL    |       |
+| aadhar_no | int(11)     | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+
+QUESTION 2
+
+
+Change the data type of the column ‘DOB’  in year the table EMPLOYEE    
+
+
+
+ANSWER:
+
+
+alter table employee modify dob year;
+
+
+desc employee;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| ssn       | varchar(25) | YES  |     | NULL    |       |
+| emp_id    | int(11)     | YES  |     | NULL    |       |
+| name      | varchar(20) | YES  |     | NULL    |       |
+| city      | varchar(30) | YES  |     | NULL    |       |
+| dob       | year(4)     | YES  |     | NULL    |       |
+| aadhar_no | int(11)     | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+
+
+
+QUESTION 3
+
+
+Delete the column ‘emp_id’ the table EMPLOYEE.
+
+
+ANSWER:
+
+ alter table employee drop emp_id;
+
+
+desc employee;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| ssn       | varchar(25) | YES  |     | NULL    |       |
+| name      | varchar(20) | YES  |     | NULL    |       |
+| city      | varchar(30) | YES  |     | NULL    |       |
+| dob       | year(4)     | YES  |     | NULL    |       |
+| aadhar_no | int(11)     | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+
+QUESTION 4
+
+
+Add  the constraint unique for columns ‘SSN, ‘adhar_no’ the table EMPLOYEE
+
+ANSWER:
+
+
+alter table employee add constraint e2 unique(ssn),add constraint e3 unique(aadhar_no);
+
+
+desc employee;   
+
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| ssn       | varchar(25) | YES  | UNI | NULL    |       |
+| name      | varchar(20) | YES  |     | NULL    |       |
+| city      | varchar(30) | YES  |     | NULL    |       |
+| dob       | year(4)     | YES  |     | NULL    |       |
+| aadhar_no | int(11)     | YES  | UNI | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+
+QUESTION 5
+
+
+Delete the NULL constraint of ‘age’ in the STUDENT table.
+
+ANSWER:
+
+alter table student modify age int null;
+
+
+desc student;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| roll_no | int(11)     | NO   | PRI | NULL    |       |
+| name    | varchar(20) | NO   |     | NULL    |       |
+| age     | int(11)     | YES  |     | NULL    |       |
+| address | varchar(50) | YES  |     | NULL    |       |
+| gender  | varchar(10) | YES  |     | m       |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+
+
+QUESTION 6
+
+
+Change the table name EMPLOYEE as PERSON
+
+
+ANSWER:
+
+
+alter table employee rename to person;
+
+
+desc person;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| ssn       | varchar(25) | YES  | UNI | NULL    |       |
+| name      | varchar(20) | YES  |     | NULL    |       |
+| city      | varchar(30) | YES  |     | NULL    |       |
+| dob       | year(4)     | YES  |     | NULL    |       |
+| aadhar_no | int(11)     | YES  | UNI | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+
+QUESTION 7
+
+Delete the duplicate table of employee.
+
+
+ANSWER:
+
+drop table emp;
+
+
+show tables;
++-----------------+
+| Tables_in_janan |
++-----------------+
+| customer        |
+| employ          |
+| items           |
+| person          |
+| product         |
+| student         |
++-----------------+
+6 rows in set (0.00 sec)
