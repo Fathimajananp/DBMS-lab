@@ -46,7 +46,7 @@ desc student;
 
 2.1 Roll_no – Primary key
 
-alter table student add constraint a1 primary key(roll_no);
+alter table student add constraint a1 primary key(roll_no);  //USE ONLY CREATE COMMAND
 
 desc student; 
                                  
@@ -63,7 +63,7 @@ desc student;
 
 2.2 Name – does not allow null values
 
-alter table student modify name varchar(20) not null;
+alter table student modify name varchar(20) not null;   //USE ONLY CREATE COMMAND
 
 desc student;                                  
 +---------+-------------+------+-----+---------+-------+
@@ -287,4 +287,4 @@ desc invoice_item;
 3 rows in set (0.01 sec)
 
 
-
+//EXPEREMENT NO: 1 IS DDL-CREATE COMMAND
