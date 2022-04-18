@@ -27,82 +27,27 @@ QUESTION-2
 
 Create a table STUDENT have the
 fields(roll_no, name, age, address, gender)and add following constraints on it.
+Roll no - primary key
+
 
 ANSWER:
 
-create table student(roll_no int,name varchar(20),age int,address varchar(50),gender varchar(10));
+create table student(roll_no int primary key,name varchar(20) not null,age int not null check(0-99),address varchar(50),gender varchar(10) default 'm');
 
 desc student;
 +---------+-------------+------+-----+---------+-------+
 | Field   | Type        | Null | Key | Default | Extra |
 +---------+-------------+------+-----+---------+-------+
-| roll_no | int(11)     | YES  |     | NULL    |       |
+| roll_no | int(11)     | YES  | PRI | NULL    |       |
 | name    | varchar(20) | YES  |     | NULL    |       |
 | age     | int(11)     | YES  |     | NULL    |       |
-| address | varchar(50) | YES  |     | NULL    |       |
-| gender  | varchar(10) | YES  |     | NULL    |       |
-+---------+-------------+------+-----+---------+-------+
-5 rows in set (0.00 sec)
-
-2.1 Roll_no – Primary key
-
-alter table student add constraint a1 primary key(roll_no);  //USE ONLY CREATE COMMAND
-
-desc student; 
-                                 
-+---------+-------------+------+-----+---------+-------+
-| Field   | Type        | Null | Key | Default | Extra |
-+---------+-------------+------+-----+---------+-------+
-| roll_no | int(11)     | NO   | PRI | NULL    |       |
-| name    | varchar(20) | YES  |     | NULL    |       |
-| age     | int(11)     | YES  |     | NULL    |       |
-| address | varchar(50) | YES  |     | NULL    |       |
-| gender  | varchar(10) | YES  |     | NULL    |       |
-+---------+-------------+------+-----+---------+-------+
-5 rows in set (0.00 sec)
-
-2.2 Name – does not allow null values
-
-alter table student modify name varchar(20) not null;   //USE ONLY CREATE COMMAND
-
-desc student;                                  
-+---------+-------------+------+-----+---------+-------+
-| Field   | Type        | Null | Key | Default | Extra |
-+---------+-------------+------+-----+---------+-------+
-| roll_no | int(11)     | NO   | PRI | NULL    |       |
-| name    | varchar(20) | NO   |     | NULL    |       |
-| age     | int(11)     | YES  |     | NULL    |       |
-| address | varchar(50) | YES  |     | NULL    |       |
-| gender  | varchar(10) | YES  |     | NULL    |       |
-+---------+-------------+------+-----+---------+-------+
-5 rows in set (0.00 sec)
-
-2.3 Age- must be in between (0-99), does
-not allow null values
-
-alter table student add check(age>0 and age<99);
-
-
-alter table student modify age int not null;
-
-
-
-
-2.4 Gender- default value is ‘m’
-
-alter table student alter gender set default 'm';
-
-desc student;
-+---------+-------------+------+-----+---------+-------+
-| Field   | Type        | Null | Key | Default | Extra |
-+---------+-------------+------+-----+---------+-------+
-| roll_no | int(11)     | NO   | PRI | NULL    |       |
-| name    | varchar(20) | NO   |     | NULL    |       |
-| age     | int(11)     | NO   |     | NULL    |       |
 | address | varchar(50) | YES  |     | NULL    |       |
 | gender  | varchar(10) | YES  |     | m       |       |
 +---------+-------------+------+-----+---------+-------+
 5 rows in set (0.00 sec)
+
+
+
 
 
 
