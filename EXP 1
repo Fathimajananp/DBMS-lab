@@ -27,7 +27,12 @@ QUESTION-2
 
 Create a table STUDENT have the
 fields(roll_no, name, age, address, gender)and add following constraints on it.
-Roll no - primary key
+Roll no - primary key 
+Name - does not allow null values 
+Age - must be in between(0-99), does not allow null values
+Gender - default value is 'm'
+
+
 
 
 ANSWER:
