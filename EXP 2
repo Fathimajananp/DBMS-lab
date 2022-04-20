@@ -14,10 +14,10 @@ Add a column ‘SSN’ at the first position in the table EMPLOYEE
 Query:
 
 
-alter table employee add ssn varchar(25) first;
+mysql>alter table employee add ssn varchar(25) first;
 
 
- desc employee;
+ mysql>desc employee;
 +-----------+-------------+------+-----+---------+-------+
 | Field     | Type        | Null | Key | Default | Extra |
 +-----------+-------------+------+-----+---------+-------+
@@ -42,10 +42,10 @@ Change the data type of the column ‘DOB’  in year the table EMPLOYEE
 Query:
 
 
-alter table employee modify dob year;
+mysql>alter table employee modify dob year;
 
 
-desc employee;
+mysql>desc employee;
 +-----------+-------------+------+-----+---------+-------+
 | Field     | Type        | Null | Key | Default | Extra |
 +-----------+-------------+------+-----+---------+-------+
@@ -69,10 +69,10 @@ Delete the column ‘emp_id’ the table EMPLOYEE.
 
 Query:
 
- alter table employee drop emp_id;
+ mysql>alter table employee drop emp_id;
 
 
-desc employee;
+mysql>desc employee;
 +-----------+-------------+------+-----+---------+-------+
 | Field     | Type        | Null | Key | Default | Extra |
 +-----------+-------------+------+-----+---------+-------+
@@ -94,10 +94,10 @@ Add  the constraint unique for columns ‘SSN, ‘adhar_no’ the table EMPLOYEE
 Query:
 
 
-alter table employee add constraint e2 unique(ssn),add constraint e3 unique(aadhar_no);
+mysql>alter table employee add constraint e2 unique(ssn),add constraint e3 unique(aadhar_no);
 
 
-desc employee;   
+mysql>desc employee;   
 
 +-----------+-------------+------+-----+---------+-------+
 | Field     | Type        | Null | Key | Default | Extra |
@@ -119,10 +119,10 @@ Delete the NULL constraint of ‘age’ in the STUDENT table.
 
 Query:
 
-alter table student modify age int null;
+mysql>alter table student modify age int null;
 
 
-desc student;
+mysql>desc student;
 +---------+-------------+------+-----+---------+-------+
 | Field   | Type        | Null | Key | Default | Extra |
 +---------+-------------+------+-----+---------+-------+
@@ -146,10 +146,10 @@ Change the table name EMPLOYEE as PERSON
 Query:
 
 
-alter table employee rename to person;
+mysql>alter table employee rename to person;
 
 
-desc person;
+mysql>desc person;
 +-----------+-------------+------+-----+---------+-------+
 | Field     | Type        | Null | Key | Default | Extra |
 +-----------+-------------+------+-----+---------+-------+
@@ -170,10 +170,10 @@ Delete the duplicate table of employee.
 
 Query:
 
-drop table emp;
+mysql>drop table emp;
 
 
-show tables;
+mysql>show tables;
 +-----------------+
 | Tables_in_janan |
 +-----------------+
