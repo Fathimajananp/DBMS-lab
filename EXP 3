@@ -1,6 +1,9 @@
-     EXPERIMENT NO - 03
+                                     EXPERIMENT NO - 03
  
-   DML command-INSERT
+                                      DML command-INSERT
+------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
 
 
 3 DML COMMANDS-INSERT
@@ -12,10 +15,10 @@ QUESTION 1
 Insert values in EMPLOYEE table.
 
 
-ANSWER:
+Query:
 
 
-show tables;
+mysql>show tables;
 
 
 +-----------------+
@@ -31,7 +34,7 @@ show tables;
 6 rows in set (0.01 sec)
 
 
-alter table person rename to employee;
+mysql>alter table person rename to employee;
 
 Query OK, 0 rows affected (0.10 sec)
 
@@ -49,7 +52,7 @@ desc employee;
 5 rows in set (0.00 sec)
 
 
-select * from employee;
+mysql>select * from employee;
 
 Empty set (0.01 sec)
 
@@ -60,7 +63,7 @@ Query OK, 0 rows affected (0.80 sec)
 
 
 
-desc employee;
+mysql>desc employee;
 +-----------+-------------+------+-----+---------+-------+
 | Field     | Type        | Null | Key | Default | Extra |
 +-----------+-------------+------+-----+---------+-------+
@@ -97,7 +100,7 @@ Query OK, 1 row affected (0.04 sec)
 
 
 
-select * from employee;
+mysql>select * from employee;
 
 
 +------+-------+------+------------+-----------+
@@ -124,11 +127,11 @@ QUESTION 2
 Insert values in STUDENT table.
 
 
-ANSWER:
+Query:
 
 
 
- desc student;
+ mysql>desc student;
 +---------+-------------+------+-----+---------+-------+
 | Field   | Type        | Null | Key | Default | Extra |
 +---------+-------------+------+-----+---------+-------+
@@ -141,7 +144,7 @@ ANSWER:
 5 rows in set (0.01 sec)
 
 
- select * from student; 
+ mysql>select * from student; 
 
 
 Empty set (0.00 sec)
@@ -194,14 +197,14 @@ QUESTION 3
  Insert values in INVOICE database
 
 
-ANSWER:
+Query:
 
-use invoice;
+mysql>use invoice;
 
 Database changed
 
 
-show tables;
+mysql>show tables;
 +-------------------+
 | Tables_in_invoice |
 +-------------------+
@@ -214,7 +217,7 @@ show tables;
 
 
 
-desc customer;
+mysql>desc customer;
 +---------+-------------+------+-----+---------+-------+
 | Field   | Type        | Null | Key | Default | Extra |
 +---------+-------------+------+-----+---------+-------+
@@ -242,11 +245,11 @@ mysql> insert into customer values(3,'emir','baithul hubb','ekm',56439321);
 Query OK, 1 row affected (0.04 sec)
 
 
-insert into customer (id,name,address,city) values(4,'anulf','baithul','tsy');
+mysql>insert into customer (id,name,address,city) values(4,'anulf','baithul','tsy');
 
 Query OK, 1 row affected (0.04 sec)
 
-insert into customer values(5,'irfan','sanam','kgm',234523455);
+mysql>insert into customer values(5,'irfan','sanam','kgm',234523455);
 
 Query OK, 1 row affected (0.03 sec)
 
@@ -268,7 +271,7 @@ mysql> select * from customer;
 
 
 
-desc product;
+mysql>desc product;
 
 +-------+--------------+------+-----+---------+-------+
 | Field | Type         | Null | Key | Default | Extra |
@@ -321,7 +324,7 @@ mysql> select * from product;
 
 
 
-desc invoice_master;  
+mysql>desc invoice_master;  
 
 +----------+---------+------+-----+---------+-------+
 | Field    | Type    | Null | Key | Default | Extra |
@@ -374,7 +377,7 @@ mysql> select * from invoice_master;
 
 
 
-desc invoice_item;
+mysql>desc invoice_item;
 
 +----------+---------+------+-----+---------+-------+
 | Field    | Type    | Null | Key | Default | Extra |
