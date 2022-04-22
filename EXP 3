@@ -449,3 +449,4 @@ mysql> select * from invoice_item;
 10 rows in set (0.00 sec)
 
 --------------------------------------------------------------------------------------------------------
+//INSERT ONE BILL'S ITEMS FULLY THEN ENTER NEXT ONE.1001, 1002, 1003 ETC
