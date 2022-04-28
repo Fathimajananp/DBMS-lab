@@ -1,0 +1,249 @@
+                                             Experiment No:5 
+
+                                            DML COMMAND-DELETE
+---------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
+
+QUESTION :1
+
+Exp5 : DML COMMAND- DELETE
+
+Delete the record of customer id ‘5’.
+
+Query:
+
+
+mysql> delete from customer where id=5;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from customer;
++----+-------+---------------+-----------+-----------+
+| id | name  | address       | city      | ph_no     |
++----+-------+---------------+-----------+-----------+
+|  1 | jan   | bluemoon      | kozhikode | 987654321 |
+|  2 | sanam | rayyan valley | tvm       |  56439321 |
+|  3 | emir  | baithul hubb  | ekm       |  56439321 |
+|  4 | anulf | manzil        | kochi     |  98765432 |
++----+-------+---------------+-----------+-----------+
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+QUESTION :2
+
+Delete all purchase details of items its quantity less than 2.
+
+Query:
+
+/*mysql> update invoice_item set quantity=7 where inv_id=1003 and pid=101;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|   1002 |  102 |        5 |
+|   1002 |  104 |        2 |
+|   1003 |  103 |        2 |
+|   1003 |  102 |        3 |
+|   1003 |  101 |        7 |
+|   1004 |  106 |       10 |
+|   1006 |  102 |        2 |
+|   1006 |  101 |        2 |
++--------+------+----------+
+
+
+
+
+*/
+
+
+mysql> delete from invoice_item where quantity<2;
+
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|   1002 |  102 |        5 |
+|   1002 |  104 |        2 |
+|   1003 |  103 |        2 |
+|   1003 |  102 |        3 |
+|   1003 |  101 |        7 |
+|   1004 |  106 |       10 |
+|   1006 |  102 |        2 |
+|   1006 |  101 |        2 |
++--------+------+----------+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+QUESTION :3
+
+Delete the purchase details of product ‘pen’ in the in_id ‘1006’.
+
+
+Query:
+
+mysql> delete from invoice_item where pid=102 and inv_id=1006 ;
+
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from invoice_item;
+
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|   1002 |  102 |        5 |
+|   1002 |  104 |        2 |
+|   1003 |  103 |        2 |
+|   1003 |  102 |        3 |
+|   1003 |  101 |        7 |
+|   1004 |  106 |       10 |
+|   1006 |  101 |        2 |
++--------+------+----------+
+
+--------------------------------------------------------------------------------------------------------
+
+
+
+QUESTION :4
+
+Delete details of customer who does not have phone number.
+
+Query:
+
+
+/*mysql> insert into customer values(5,'jinu','rose','kgm',NULL);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from customer;
++----+-------+---------------+-----------+-----------+
+| id | name  | address       | city      | ph_no     |
++----+-------+---------------+-----------+-----------+
+|  1 | jan   | bluemoon      | kozhikode | 987654321 |
+|  2 | sanam | rayyan valley | tvm       |  56439321 |
+|  3 | emir  | baithul hubb  | ekm       |  56439321 |
+|  4 | anulf | manzil        | kochi     |  24576788 |
+|  5 | jinu  | rose          | kgm       |      NULL |
++----+-------+---------------+-----------+-----------+
+5 rows in set (0.00 sec)
+
+
+*/
+mysql> delete from customer where ph_no is NULL;
+
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from customer;
++----+-------+---------------+-----------+-----------+
+| id | name  | address       | city      | ph_no     |
++----+-------+---------------+-----------+-----------+
+|  1 | jan   | bluemoon      | kozhikode | 987654321 |
+|  2 | sanam | rayyan valley | tvm       |  56439321 |
+|  3 | emir  | baithul hubb  | ekm       |  56439321 |
+|  4 | anulf | manzil        | kochi     |  24576788 |
++----+-------+---------------+-----------+-----------+
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+QUESTION :5
+
+Delete all records from STUDENT table.
+
+
+Query:
+
+mysql> delete from student;
+
+Query OK, 5 rows affected (0.06 sec)
+
+mysql> select * from student;
+
+Empty set (0.00 sec)
+
+--------------------------------------------------------------------------------------------------------
+
+
+
+QUESTION :6
+
+Delete Invoice details of a particular customer.
+
+Query:
+
+mysql> delete from invoice_item where inv_id=1002;
+
+Query OK, 2 rows affected (0.07 sec)
+
+mysql> select * from invoice_item;
+
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|   1003 |  103 |        2 |
+|   1003 |  102 |        3 |
+|   1003 |  101 |        7 |
+|   1004 |  106 |       10 |
+|   1006 |  101 |        2 |
++--------+------+----------+
+
+
+mysql> delete from invoice_master where inv_id=1002;
+
+Query OK, 1 row affected (0.08 sec)
+
+mysql> select * from invoice_master;
+
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|   1001 |       1 | 2022-01-01 |
+|   1003 |       3 | 2021-06-03 |
+|   1004 |       3 | 2022-04-04 |
+|   1005 |       4 | 2021-03-07 |
+|   1006 |       4 | 2021-09-05 |
++--------+---------+------------+
+
+--------------------------------------------------------------------------------------------------------
+
+QUESTION :7
+
+Delete the first two records of INVOICE_ITEM table its purchase quantity is high.
+
+Query: 
+
+mysql> select * from invoice_item;
+
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|   1003 |  103 |        2 |
+|   1003 |  102 |        3 |
+|   1003 |  101 |        7 |
+|   1004 |  106 |       10 |
+|   1006 |  101 |        2 |
++--------+------+----------+
+
+
+mysql> delete from invoice_item order by quantity desc limit 2;
+
+Query OK, 2 rows affected (0.08 sec)
+
+mysql> select * from invoice_item;
+
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|   1003 |  103 |        2 |
+|   1003 |  102 |        3 |
+|   1006 |  101 |        2 |
++--------+------+----------+
+
+--------------------------------------------------------------------------------------------------------
