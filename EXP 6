@@ -1,0 +1,485 @@
+                                            Experiment No: 6
+											
+											 SELECT QUERY 1
+---------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
+
+
+QUESTION : 1
+
+
+List all customer details.
+
+
+QUERY :
+
+mysql> select * from customer;
+
++----+-------+---------------+-----------+-----------+
+| id | name  | address       | city      | ph_no     |
++----+-------+---------------+-----------+-----------+
+|  1 | jan   | bluemoon      | kozhikode | 987654321 |
+|  2 | sanam | rayyan valley | tvm       |  56439321 |
+|  3 | emir  | baithul hubb  | ekm       |  56439321 |
+|  4 | anulf | manzil        | kochi     |  24576788 |
++----+-------+---------------+-----------+-----------+
+
+--------------------------------------------------------------------------------------------------------
+
+QUESTION : 2
+
+
+List pname, price of all products.
+
+
+QUERY :
+
+mysql> select pname,price from product;
+
++--------+--------+
+| pname  | price  |
++--------+--------+
+| book   |  56.10 |
+| pen    |  15.30 |
+| bag    | 510.00 |
+| box    | 306.00 |
+| sheo   | 765.00 |
+| pencil |  10.20 |
++--------+--------+
+
+--------------------------------------------------------------------------------------------------------
+
+QUESTION : 3
+
+
+List all invoice items, avoid duplicates.
+
+
+QUERY :
+
+mysql> select * from invoice_item;
+
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|   1003 |  103 |        2 |
+|   1003 |  102 |        3 |
+|   1006 |  101 |        2 |
++--------+------+----------+
+
+mysql> select distinct inv_id from invoice_item;
+
++--------+
+| inv_id |
++--------+
+|   1003 |
+|   1006 |
++--------+
+
+--------------------------------------------------------------------------------------------------------
+
+QUESTION : 4
+
+
+List product price between 50rs and 150rs
+
+QUERY :
+
+mysql> select * from product;
+
++-----+--------+--------+
+| pid | pname  | price  |
++-----+--------+--------+
+| 101 | book   |  56.10 |
+| 102 | pen    |  15.30 |
+| 103 | bag    | 510.00 |
+| 104 | box    | 306.00 |
+| 105 | sheo   | 765.00 |
+| 106 | pencil |  10.20 |
++-----+--------+--------+
+
+mysql> select * from product where price between 50 and 150;
+
++-----+-------+-------+
+| pid | pname | price |
++-----+-------+-------+
+| 101 | book  | 56.10 |
++-----+-------+-------+
+
+---------------------------------------------------------------------------------------------------------
+
+QUESTION : 5
+
+
+List the customer details who lives in ‘ekm’,’tvm’.
+
+
+
+QUERY :
+
+mysql> select * from customer;
+
++----+-------+---------------+-----------+-----------+
+| id | name  | address       | city      | ph_no     |
++----+-------+---------------+-----------+-----------+
+|  1 | jan   | bluemoon      | kozhikode | 987654321 |
+|  2 | sanam | rayyan valley | tvm       |  56439321 |
+|  3 | emir  | baithul hubb  | ekm       |  56439321 |
+|  4 | anulf | manzil        | kochi     |  24576788 |
++----+-------+---------------+-----------+-----------+
+
+mysql> select * from customer where city='ekm' or city='tvm';
+
++----+-------+---------------+------+----------+
+| id | name  | address       | city | ph_no    |
++----+-------+---------------+------+----------+
+|  2 | sanam | rayyan valley | tvm  | 56439321 |
+|  3 | emir  | baithul hubb  | ekm  | 56439321 |
++----+-------+---------------+------+----------+
+
+--------------------------------------------------------------------------------------------------------
+
+QUESTION : 6
+
+
+List the invoice details from 1st January 2021 to 31st march 2022
+
+
+QUERY :
+
+mysql> select * from invoice_master;
+
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|   1001 |       1 | 2022-01-01 |
+|   1003 |       3 | 2021-06-03 |
+|   1004 |       3 | 2022-04-04 |
+|   1005 |       4 | 2021-03-07 |
+|   1006 |       4 | 2021-09-05 |
++--------+---------+------------+
+
+mysql> select * from invoice_master where inv_date between '2021-01-01' and '2022-03-31';
+
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|   1001 |       1 | 2022-01-01 |
+|   1003 |       3 | 2021-06-03 |
+|   1005 |       4 | 2021-03-07 |
+|   1006 |       4 | 2021-09-05 |
++--------+---------+------------+
+
+
+--------------------------------------------------------------------------------------------------------
+
+QUESTION : 7
+
+
+List the customer details who not live in ‘tvm’.
+
+QUERY :
+
+mysql> select * from customer; 
+
++----+-------+---------------+-----------+-----------+
+| id | name  | address       | city      | ph_no     |
++----+-------+---------------+-----------+-----------+
+|  1 | jan   | bluemoon      | kozhikode | 987654321 |
+|  2 | sanam | rayyan valley | tvm       |  56439321 |
+|  3 | emir  | baithul hubb  | ekm       |  56439321 |
+|  4 | anulf | manzil        | kochi     |  24576788 |
++----+-------+---------------+-----------+-----------+
+
+mysql> select * from customer where city not in ('tvm');
+
++----+-------+--------------+-----------+-----------+
+| id | name  | address      | city      | ph_no     |
++----+-------+--------------+-----------+-----------+
+|  1 | jan   | bluemoon     | kozhikode | 987654321 |
+|  3 | emir  | baithul hubb | ekm       |  56439321 |
+|  4 | anulf | manzil       | kochi     |  24576788 |
++----+-------+--------------+-----------+-----------+
+
+---------------------------------------------------------------------------------------------------------
+
+QUESTION : 8
+
+
+List the customers who have no phone number.
+
+QUERY :
+
+mysql> insert into customer (id,name,address,city) values(6,'anulf','baithul','tsy');
+
+Query OK, 1 row affected (0.04 sec)
+
+
+mysql> select * from customer;  
+
+                    
++----+-------+---------------+-----------+-----------+
+| id | name  | address       | city      | ph_no     |
++----+-------+---------------+-----------+-----------+
+|  1 | jan   | bluemoon      | kozhikode | 987654321 |
+|  2 | sanam | rayyan valley | tvm       |  56439321 |
+|  3 | emir  | baithul hubb  | ekm       |  56439321 |
+|  4 | anulf | manzil        | kochi     |  24576788 |
+|  6 | anulf | baithul       | tsy       |      NULL |
++----+-------+---------------+-----------+-----------+
+
+
+mysql> select * from customer where ph_no is NULL;
+
++----+-------+---------+------+-------+
+| id | name  | address | city | ph_no |
++----+-------+---------+------+-------+
+|  6 | anulf | baithul | tsy  |  NULL |
++----+-------+---------+------+-------+
+
+
+--------------------------------------------------------------------------------------------------------
+
+QUESTION : 9
+
+
+Display customer names in descending order.
+
+QUERY :
+
+mysql> select * from customer;
+
++----+-------+---------------+-----------+-----------+
+| id | name  | address       | city      | ph_no     |
++----+-------+---------------+-----------+-----------+
+|  1 | jan   | bluemoon      | kozhikode | 987654321 |
+|  2 | sanam | rayyan valley | tvm       |  56439321 |
+|  3 | emir  | baithul hubb  | ekm       |  56439321 |
+|  4 | anulf | manzil        | kochi     |  24576788 |
+|  6 | anulf | baithul       | tsy       |      NULL |
++----+-------+---------------+-----------+-----------+
+
+mysql> select name from customer order by name desc; 
+
++-------+
+| name  |
++-------+
+| sanam |
+| jan   |
+| emir  |
+| anulf |
+| anulf |
++-------+
+
+--------------------------------------------------------------------------------------------------------
+
+QUESTION : 10
+
+
+Display the customer details sorted in ascending by city and descending by names.
+
+
+QUERY :
+
+mysql> select * from customer;
+
++----+-------+---------------+-----------+-----------+
+| id | name  | address       | city      | ph_no     |
++----+-------+---------------+-----------+-----------+
+|  1 | jan   | bluemoon      | kozhikode | 987654321 |
+|  2 | sanam | rayyan valley | tvm       |  56439321 |
+|  3 | emir  | baithul hubb  | ekm       |  56439321 |
+|  4 | anulf | manzil        | kochi     |  24576788 |
+|  6 | anulf | baithul       | tsy       |      NULL |
++----+-------+---------------+-----------+-----------+
+
+
+mysql> select * from customer order by city,name desc ;
+
++----+-------+---------------+-----------+-----------+
+| id | name  | address       | city      | ph_no     |
++----+-------+---------------+-----------+-----------+
+|  3 | emir  | baithul hubb  | ekm       |  56439321 |
+|  4 | anulf | manzil        | kochi     |  24576788 |
+|  1 | jan   | bluemoon      | kozhikode | 987654321 |
+|  6 | anulf | baithul       | tsy       |      NULL |
+|  2 | sanam | rayyan valley | tvm       |  56439321 |
++----+-------+---------------+-----------+-----------+
+
+---------------------------------------------------------------------------------------------------------
+
+QUESTION : 11
+
+
+Find the customer names start with ‘A’.
+
+
+QUERY :
+
+
+mysql> select * from customer;  
+                    
++----+-------+---------------+-----------+-----------+
+| id | name  | address       | city      | ph_no     |
++----+-------+---------------+-----------+-----------+
+|  1 | jan   | bluemoon      | kozhikode | 987654321 |
+|  2 | sanam | rayyan valley | tvm       |  56439321 |
+|  3 | emir  | baithul hubb  | ekm       |  56439321 |
+|  4 | anulf | manzil        | kochi     |  24576788 |
+|  6 | anulf | baithul       | tsy       |      NULL |
++----+-------+---------------+-----------+-----------+
+
+mysql> select name from customer where name like 'A%';
+
++-------+
+| name  |
++-------+
+| anulf |
+| anulf |
++-------+
+
+--------------------------------------------------------------------------------------------------------
+
+QUESTION : 12
+
+Find the customer names who have ‘e’ or ‘a’ in them.
+
+
+QUERY :
+
+mysql> insert into customer (id,name,address,city) values(7,'lilly','rose villa','clt');
+
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from customer;   
+                   
++----+-------+---------------+-----------+-----------+
+| id | name  | address       | city      | ph_no     |
++----+-------+---------------+-----------+-----------+
+|  1 | jan   | bluemoon      | kozhikode | 987654321 |
+|  2 | sanam | rayyan valley | tvm       |  56439321 |
+|  3 | emir  | baithul hubb  | ekm       |  56439321 |
+|  4 | anulf | manzil        | kochi     |  24576788 |
+|  6 | anulf | baithul       | tsy       |      NULL |
+|  7 | lilly | rose villa    | clt       |      NULL |
++----+-------+---------------+-----------+-----------+
+
+mysql> select name from customer where name like '%e%' or name like '%a%';
+
++-------+
+| name  |
++-------+
+| jan   |
+| sanam |
+| emir  |
+| anulf |
+| anulf |
++-------+
+
+
+
+--------------------------------------------------------------------------------------------------------
+
+QUESTION : 13
+
+
+Find the customer names who have at least 3 characters.
+
+QUERY :
+
+mysql> select * from customer;   
+                  
++----+-------+---------------+-----------+-----------+
+| id | name  | address       | city      | ph_no     |
++----+-------+---------------+-----------+-----------+
+|  1 | jan   | bluemoon      | kozhikode | 987654321 |
+|  2 | sanam | rayyan valley | tvm       |  56439321 |
+|  3 | emir  | baithul hubb  | ekm       |  56439321 |
+|  4 | anulf | manzil        | kochi     |  24576788 |
+|  6 | anulf | baithul       | tsy       |      NULL |
+|  7 | lilly | rose villa    | clt       |      NULL |
++----+-------+---------------+-----------+-----------+
+
+mysql> select name from customer where name like '___';
+
++------+
+| name |
++------+
+| jan  |
++------+
+
+
+--------------------------------------------------------------------------------------------------------
+
+QUESTION : 14
+
+List the names of customers their names have ‘r’ in second position.
+
+
+
+QUERY :
+
+mysql> insert into customer (id,name,address,city) values(8,'arc','rose','kgm');
+
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from customer;
+                      
++----+-------+---------------+-----------+-----------+
+| id | name  | address       | city      | ph_no     |
++----+-------+---------------+-----------+-----------+
+|  1 | jan   | bluemoon      | kozhikode | 987654321 |
+|  2 | sanam | rayyan valley | tvm       |  56439321 |
+|  3 | emir  | baithul hubb  | ekm       |  56439321 |
+|  4 | anulf | manzil        | kochi     |  24576788 |
+|  6 | anulf | baithul       | tsy       |      NULL |
+|  7 | lilly | rose villa    | clt       |      NULL |
+|  8 | arc   | rose          | kgm       |      NULL |
++----+-------+---------------+-----------+-----------+
+
+mysql> select name from customer where name like '_r%';
+
++------+
+| name |
++------+
+| arc  |
++------+
+
+
+--------------------------------------------------------------------------------------------------------
+
+QUESTION : 15
+
+
+Find the customer names start with ‘a’ and are at least 4 characters in length.
+
+
+QUERY :
+
+
+mysql> select * from customer;                      
+
++----+-------+---------------+-----------+-----------+
+| id | name  | address       | city      | ph_no     |
++----+-------+---------------+-----------+-----------+
+|  1 | jan   | bluemoon      | kozhikode | 987654321 |
+|  2 | sanam | rayyan valley | tvm       |  56439321 |
+|  3 | emir  | baithul hubb  | ekm       |  56439321 |
+|  4 | anulf | manzil        | kochi     |  24576788 |
+|  6 | anulf | baithul       | tsy       |      NULL |
+|  7 | lilly | rose villa    | clt       |      NULL |
+|  8 | arc   | rose          | kgm       |      NULL |
++----+-------+---------------+-----------+-----------+
+
+mysql> select name from customer where name like 'a___%';
+
++-------+
+| name  |
++-------+
+| anulf |
+| anulf |
++-------+
+
+
+-----------------------------------------------------------------------------------------------------------
