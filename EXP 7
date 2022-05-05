@@ -1,0 +1,235 @@
+                                           Experiment No: 7 
+
+                                            SELECT query 2
+----------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------
+
+
+DML- SELECT QUERY 2 (GROUP BY, AGGREGATE FUNCTIONS)
+
+
+
+QUESTION : 1
+
+
+List product name, price except soap on price order.
+
+
+
+QUERY :
+
+
+mysql> insert into product values(107,'soap',50);
+
+Query OK, 1 row affected (0.05 sec)
+
+
+
+mysql> select * from product;
+
++-----+--------+--------+
+| pid | pname  | price  |
++-----+--------+--------+
+| 101 | book   |  56.10 |
+| 102 | pen    |  15.30 |
+| 103 | bag    | 510.00 |
+| 104 | box    | 306.00 |
+| 105 | sheo   | 765.00 |
+| 106 | pencil |  10.20 |
+| 107 | soap   |  50.00 |
++-----+--------+--------+
+
+
+mysql> select pname,price from product where pname!='soap' order by price;
+
++--------+--------+
+| pname  | price  |
++--------+--------+
+| pencil |  10.20 |
+| pen    |  15.30 |
+| book   |  56.10 |
+| box    | 306.00 |
+| bag    | 510.00 |
+| sheo   | 765.00 |
++--------+--------+
+
+----------------------------------------------------------------------------------------------------------
+
+
+QUESTION : 2
+
+
+Find minimum, maximum and average price of products.
+
+
+QUERY :
+
+
+mysql> select * from product;
+
++-----+--------+--------+
+| pid | pname  | price  |
++-----+--------+--------+
+| 101 | book   |  56.10 |
+| 102 | pen    |  15.30 |
+| 103 | bag    | 510.00 |
+| 104 | box    | 306.00 |
+| 105 | sheo   | 765.00 |
+| 106 | pencil |  10.20 |
+| 107 | soap   |  50.00 |
++-----+--------+--------+
+
+mysql> select min(price) , max(price) , avg(price) from product;
+
++------------+------------+------------+
+| min(price) | max(price) | avg(price) |
++------------+------------+------------+
+|      10.20 |     765.00 | 244.657143 |
++------------+------------+------------+
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+QUESTION : 3
+
+
+Find number of customers in each city.
+
+
+QUERY :
+
+
+mysql> insert into customer (id,name,address,city) values(9,'aza','silent valley','clt');
+
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from customer;       
+                                           
++----+-------+---------------+-----------+-----------+
+| id | name  | address       | city      | ph_no     |
++----+-------+---------------+-----------+-----------+
+|  1 | jan   | bluemoon      | kozhikode | 987654321 |
+|  2 | sanam | rayyan valley | tvm       |  56439321 |
+|  3 | emir  | baithul hubb  | ekm       |  56439321 |
+|  4 | anulf | manzil        | kochi     |  24576788 |
+|  6 | anulf | baithul       | tsy       |      NULL |
+|  7 | lilly | rose villa    | clt       |      NULL |
+|  8 | arc   | rose          | kgm       |      NULL |
+|  9 | aza   | silent valley | clt       |      NULL |
++----+-------+---------------+-----------+-----------+
+
+
+mysql> select city,count(id) from customer group by city;
+
++-----------+-----------+
+| city      | count(id) |
++-----------+-----------+
+| clt       |         2 |
+| ekm       |         1 |
+| kgm       |         1 |
+| kochi     |         1 |
+| kozhikode |         1 |
+| tsy       |         1 |
+| tvm       |         1 |
++-----------+-----------+
+
+
+---------------------------------------------------------------------------------------------------------
+
+
+QUESTION : 4
+
+
+Find number of customers in each city, only include city with more than 3 customers.
+
+
+QUERY :
+
+
+mysql> insert into customer (id,name,address,city) values(10,'ammu','skyline','clt');
+
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into customer (id,name,address,city) values(11,'anu','hilite','clt');
+
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from customer;
+
++----+-------+---------------+-----------+-----------+
+| id | name  | address       | city      | ph_no     |
++----+-------+---------------+-----------+-----------+
+|  1 | jan   | bluemoon      | kozhikode | 987654321 |
+|  2 | sanam | rayyan valley | tvm       |  56439321 |
+|  3 | emir  | baithul hubb  | ekm       |  56439321 |
+|  4 | anulf | manzil        | kochi     |  24576788 |
+|  6 | anulf | baithul       | tsy       |      NULL |
+|  7 | lilly | rose villa    | clt       |      NULL |
+|  8 | arc   | rose          | kgm       |      NULL |
+|  9 | aza   | silent valley | clt       |      NULL |
+| 10 | ammu  | skyline       | clt       |      NULL |
+| 11 | anu   | hilite        | clt       |      NULL |
++----+-------+---------------+-----------+-----------+
+
+
+mysql> select city,count(id) from customer group by city having count(id) > 3;
+
++------+-----------+
+| city | count(id) |
++------+-----------+
+| clt  |         4 |
++------+-----------+
+
+
+----------------------------------------------------------------------------------------------------------
+
+
+QUESTION : 5
+
+
+Show data as displayed ‘who, where’ Eg: ‘customer1 lives in ekm’
+
+
+QUERY :
+
+
+mysql> select * from customer;
+
++----+-------+---------------+-----------+-----------+
+| id | name  | address       | city      | ph_no     |
++----+-------+---------------+-----------+-----------+
+|  1 | jan   | bluemoon      | kozhikode | 987654321 |
+|  2 | sanam | rayyan valley | tvm       |  56439321 |
+|  3 | emir  | baithul hubb  | ekm       |  56439321 |
+|  4 | anulf | manzil        | kochi     |  24576788 |
+|  6 | anulf | baithul       | tsy       |      NULL |
+|  7 | lilly | rose villa    | clt       |      NULL |
+|  8 | arc   | rose          | kgm       |      NULL |
+|  9 | aza   | silent valley | clt       |      NULL |
+| 10 | ammu  | skyline       | clt       |      NULL |
+| 11 | anu   | hilite        | clt       |      NULL |
++----+-------+---------------+-----------+-----------+
+
+
+
+mysql> select concat(name,' lives in ' ,city) as customer_details from customer; 
+
++------------------------+
+| customer_details       |
++------------------------+
+| jan lives in kozhikode |
+| sanam lives in tvm     |
+| emir lives in ekm      |
+| anulf lives in kochi   |
+| anulf lives in tsy     |
+| lilly lives in clt     |
+| arc lives in kgm       |
+| aza lives in clt       |
+| ammu lives in clt      |
+| anu lives in clt       |
++------------------------+
+
+---------------------------------------------------------------------------------------------------------
+
