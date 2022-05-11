@@ -1,0 +1,451 @@
+                                           Experiment No:8
+
+                                               SUBQUERY
+----------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------
+
+
+SUBQUERY
+
+
+QUESTION :
+
+
+1. List the customer names of invoice date 3rd February 2018.
+
+
+QUERY :
+
+
+
+
+mysql> select * from customer;
+
++----+-------+---------------+-----------+-----------+
+| id | name  | address       | city      | ph_no     |
++----+-------+---------------+-----------+-----------+
+|  1 | jan   | bluemoon      | kozhikode | 987654321 |
+|  2 | sanam | rayyan valley | tvm       |  56439321 |
+|  3 | emir  | baithul hubb  | ekm       |  56439321 |
+|  4 | anulf | manzil        | kochi     |  24576788 |
+|  6 | anulf | baithul       | tsy       |      NULL |
+|  7 | lilly | rose villa    | clt       |      NULL |
+|  8 | arc   | rose          | kgm       |      NULL |
+|  9 | aza   | silent valley | clt       |      NULL |
+| 10 | ammu  | skyline       | clt       |      NULL |
+| 11 | anu   | hilite        | clt       |      NULL |
++----+-------+---------------+-----------+-----------+
+
+
+mysql> insert into invoice_master values(1007,6,'2018-02-03');
+
+Query OK, 1 row affected (0.03 sec)
+
+
+mysql> select * from invoice_master;
+
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|   1001 |       1 | 2022-01-01 |
+|   1003 |       3 | 2021-06-03 |
+|   1004 |       3 | 2022-04-04 |
+|   1005 |       4 | 2021-03-07 |
+|   1006 |       4 | 2021-09-05 |
+|   1007 |       6 | 2018-02-03 |
++--------+---------+------------+
+
+
+mysql> select name from customer where id=(select cust_id from invoice_master where inv_date='2018-02-03');
+
++-------+
+| name  |
++-------+
+| anulf |
++-------+
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+QUESTION :
+
+
+2. List the product name and price of each invoice item.
+
+
+
+QUERY :
+
+
+mysql> select * from invoice_item;                             
+
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|   1003 |  103 |        2 |
+|   1003 |  102 |        3 |
+|   1006 |  101 |        2 |
++--------+------+----------+
+
+mysql> select * from product;                            
+ 
++-----+--------+--------+
+| pid | pname  | price  |
++-----+--------+--------+
+| 101 | book   |  56.10 |
+| 102 | pen    |  15.30 |
+| 103 | bag    | 510.00 |
+| 104 | box    | 306.00 |
+| 105 | sheo   | 765.00 |
+| 106 | pencil |  10.20 |
+| 107 | soap   |  50.00 |
++-----+--------+--------+
+
+
+mysql> mysql> select pname,price from product whern(select pid from invoice_item);
+
++-------+--------+
+| pname | price  |
++-------+--------+
+| book  |  56.10 |
+| pen   |  15.30 |
+| bag   | 510.00 |
++-------+--------+
+
+---------------------------------------------------------------------------------------------------------
+
+
+QUESTION :
+
+
+3. List the product names, only include their purchased quantity more than 2.
+
+
+
+QUERY :
+
+
+mysql> select * from product;
+
++-----+--------+--------+
+| pid | pname  | price  |
++-----+--------+--------+
+| 101 | book   |  56.10 |
+| 102 | pen    |  15.30 |
+| 103 | bag    | 510.00 |
+| 104 | box    | 306.00 |
+| 105 | sheo   | 765.00 |
+| 106 | pencil |  10.20 |
+| 107 | soap   |  50.00 |
++-----+--------+--------+
+
+
+mysql> select * from invoice_item;   
+                          
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|   1003 |  103 |        2 |
+|   1003 |  102 |        3 |
+|   1006 |  101 |        2 |
++--------+------+----------+
+
+
+mysql> select pname from product where pid in(select pid from invoice_item where quantity>2); 
+
++-------+
+| pname |
++-------+
+| pen   |
++-------+
+
+----------------------------------------------------------------------------------------------------------
+
+
+QUESTION :
+
+
+4. Find the product that has no sale.
+
+
+QUERY :
+
+
+
+mysql> select * from product;
+
++-----+--------+--------+
+| pid | pname  | price  |
++-----+--------+--------+
+| 101 | book   |  56.10 |
+| 102 | pen    |  15.30 |
+| 103 | bag    | 510.00 |
+| 104 | box    | 306.00 |
+| 105 | sheo   | 765.00 |
+| 106 | pencil |  10.20 |
+| 107 | soap   |  50.00 |
++-----+--------+--------+
+
+
+mysql> select * from invoice_item;
+
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|   1003 |  103 |        2 |
+|   1003 |  102 |        3 |
+|   1006 |  101 |        2 |
++--------+------+----------+
+
+mysql> select pname from product where pid not in(select pid from invoice_item);
+
++--------+
+| pname  |
++--------+
+| box    |
+| sheo   |
+| pencil |
+| soap   |
++--------+
+
+--------------------------------------------------------------------------------------------------------
+
+
+QUESTION :
+
+
+
+5. List the customer names who purchased the items ‘pen’ and ‘book’.
+
+
+QUERY :
+
+
+mysql> select * from customer;
+
++----+-------+---------------+-----------+-----------+
+| id | name  | address       | city      | ph_no     |
++----+-------+---------------+-----------+-----------+
+|  1 | jan   | bluemoon      | kozhikode | 987654321 |
+|  2 | sanam | rayyan valley | tvm       |  56439321 |
+|  3 | emir  | baithul hubb  | ekm       |  56439321 |
+|  4 | anulf | manzil        | kochi     |  24576788 |
+|  6 | anulf | baithul       | tsy       |      NULL |
+|  7 | lilly | rose villa    | clt       |      NULL |
+|  8 | arc   | rose          | kgm       |      NULL |
+|  9 | aza   | silent valley | clt       |      NULL |
+| 10 | ammu  | skyline       | clt       |      NULL |
+| 11 | anu   | hilite        | clt       |      NULL |
++----+-------+---------------+-----------+-----------+
+
+
+mysql> select * from product;
+
++-----+--------+--------+
+| pid | pname  | price  |
++-----+--------+--------+
+| 101 | book   |  56.10 |
+| 102 | pen    |  15.30 |
+| 103 | bag    | 510.00 |
+| 104 | box    | 306.00 |
+| 105 | sheo   | 765.00 |
+| 106 | pencil |  10.20 |
+| 107 | soap   |  50.00 |
++-----+--------+--------+
+
+mysql> select * from invoice_master;
+
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|   1001 |       1 | 2022-01-01 |
+|   1003 |       3 | 2021-06-03 |
+|   1004 |       3 | 2022-04-04 |
+|   1005 |       4 | 2021-03-07 |
+|   1006 |       4 | 2021-09-05 |
+|   1007 |       6 | 2018-02-03 |
++--------+---------+------------+
+
+mysql> select * from invoice_item;
+
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|   1003 |  103 |        2 |
+|   1003 |  102 |        3 |
+|   1006 |  101 |        2 |
++--------+------+----------+
+
+mysql> select  name from customer where id in(select cust_id from invoice_master where inv_id in(select inv_id from invoice_item where pid in(select pid from product where pname='pen' or pname='book')));
+
+
++-------+
+| name  |
++-------+
+| emir  |
+| anulf |
++-------+
+
+
+---------------------------------------------------------------------------------------------------------
+
+
+QUESTION :
+
+
+
+6. Display the purchased product details of the customer ’xyz’.
+
+
+QUERY :
+
+
+mysql> select * from customer;
+
++----+-------+---------------+-----------+-----------+
+| id | name  | address       | city      | ph_no     |
++----+-------+---------------+-----------+-----------+
+|  1 | jan   | bluemoon      | kozhikode | 987654321 |
+|  2 | sanam | rayyan valley | tvm       |  56439321 |
+|  3 | emir  | baithul hubb  | ekm       |  56439321 |
+|  4 | anulf | manzil        | kochi     |  24576788 |
+|  6 | anulf | baithul       | tsy       |      NULL |
+|  7 | lilly | rose villa    | clt       |      NULL |
+|  8 | arc   | rose          | kgm       |      NULL |
+|  9 | aza   | silent valley | clt       |      NULL |
+| 10 | ammu  | skyline       | clt       |      NULL |
+| 11 | anu   | hilite        | clt       |      NULL |
++----+-------+---------------+-----------+-----------+
+
+
+mysql> select * from product;
+
++-----+--------+--------+
+| pid | pname  | price  |
++-----+--------+--------+
+| 101 | book   |  56.10 |
+| 102 | pen    |  15.30 |
+| 103 | bag    | 510.00 |
+| 104 | box    | 306.00 |
+| 105 | sheo   | 765.00 |
+| 106 | pencil |  10.20 |
+| 107 | soap   |  50.00 |
++-----+--------+--------+
+
+mysql> select * from invoice_master;
+
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|   1001 |       1 | 2022-01-01 |
+|   1003 |       3 | 2021-06-03 |
+|   1004 |       3 | 2022-04-04 |
+|   1005 |       4 | 2021-03-07 |
+|   1006 |       4 | 2021-09-05 |
+|   1007 |       6 | 2018-02-03 |
++--------+---------+------------+
+
+mysql> select * from invoice_item;
+
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|   1003 |  103 |        2 |
+|   1003 |  102 |        3 |
+|   1006 |  101 |        2 |
++--------+------+----------+
+
+
+mysql> select pname,price from product where pid in(select pid from invoice_item where inv_id in(select inv_id from invoice_master where cust_id in(select id from customer where name="anulf")));
+
+
++-------+-------+
+| pname | price |
++-------+-------+
+| book  | 56.10 |
++-------+-------+
+
+---------------------------------------------------------------------------------------------------------
+
+
+QUESTION :
+
+
+7. List the names of all customers who have purchased at least 2 products, make sure that no duplicate names in the result.
+
+
+QUERY :
+
+
+mysql> select * from customer;
+
++----+-------+---------------+-----------+-----------+
+| id | name  | address       | city      | ph_no     |
++----+-------+---------------+-----------+-----------+
+|  1 | jan   | bluemoon      | kozhikode | 987654321 |
+|  2 | sanam | rayyan valley | tvm       |  56439321 |
+|  3 | emir  | baithul hubb  | ekm       |  56439321 |
+|  4 | anulf | manzil        | kochi     |  24576788 |
+|  6 | anulf | baithul       | tsy       |      NULL |
+|  7 | lilly | rose villa    | clt       |      NULL |
+|  8 | arc   | rose          | kgm       |      NULL |
+|  9 | aza   | silent valley | clt       |      NULL |
+| 10 | ammu  | skyline       | clt       |      NULL |
+| 11 | anu   | hilite        | clt       |      NULL |
++----+-------+---------------+-----------+-----------+
+
+
+mysql> select * from invoice_master;
+
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|   1001 |       1 | 2022-01-01 |
+|   1003 |       3 | 2021-06-03 |
+|   1004 |       3 | 2022-04-04 |
+|   1005 |       4 | 2021-03-07 |
+|   1006 |       4 | 2021-09-05 |
+|   1007 |       6 | 2018-02-03 |
++--------+---------+------------+
+
+
+mysql> select * from invoice_item;
+
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|   1003 |  103 |        2 |
+|   1003 |  102 |        3 |
+|   1006 |  101 |        2 |
++--------+------+----------+
+
+
+mysql> select name from customer where id in(select cust_id from invoice_master where inv_id in(select inv_id from invoice_item group by inv_id having count(inv_id)>=2));
+
++------+
+| name |
++------+
+| emir |
++------+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
