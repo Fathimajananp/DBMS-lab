@@ -1,0 +1,276 @@
+                                           Experiment No: 9
+
+                                               JOINS
+
+----------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------
+QUESTION 1:
+
+      
+List the product name and quantity of invoice items.
+
+
+QUERY :
+
+mysql> select * from product;
+
++-----+--------+--------+
+| pid | pname  | price  |
++-----+--------+--------+
+| 101 | book   |  56.10 |
+| 102 | pen    |  15.30 |
+| 103 | bag    | 510.00 |
+| 104 | box    | 306.00 |
+| 105 | sheo   | 765.00 |
+| 106 | pencil |  10.20 |
+| 107 | soap   |  50.00 |
++-----+--------+--------+
+
+mysql> select * from invoice_item;
+
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|   1003 |  103 |        2 |
+|   1003 |  102 |        3 |
+|   1006 |  101 |        2 |
++--------+------+----------+
+
+mysql> select product.pname,invoice_item.quantity from product inner join invoice_item on product.pid=invoice_item.pid;
+
++-------+----------+
+| pname | quantity |
++-------+----------+
+| bag   |        2 |
+| pen   |        3 |
+| book  |        2 |
++-------+----------+
+
+
+---------------------------------------------------------------------------------------------------------
+
+
+QUESTION 2:  
+
+    
+Display invoice details of the transaction dated ’03-06-2021’.
+
+
+
+QUERY :
+
+
+mysql> select * from invoice_master; 
+                                                                     
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|   1001 |       1 | 2022-01-01 |
+|   1003 |       3 | 2021-06-03 |
+|   1004 |       3 | 2022-04-04 |
+|   1005 |       4 | 2021-03-07 |
+|   1006 |       4 | 2021-09-05 |
+|   1007 |       6 | 2018-02-03 |
++--------+---------+------------+
+
+
+mysql> select * from invoice_item;
+
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|   1003 |  103 |        2 |
+|   1003 |  102 |        3 |
+|   1006 |  101 |        2 |
++--------+------+----------+
+
+
+
+mysql>  select
+invoice_master.inv_id,customer.name,invoice_master.inv_date,product.pname,invoice_item.quantity from customer inner join invoice_master on customer.id=invoice_master.cust_id inner join invoice_item on invoice_master.inv_id=invoice_item.inv_id join product on invoice_item.pid=product.pid where invoice_master.inv_date='2021-06-03';
+
++--------+------+------------+-------+----------+
+| inv_id | name | inv_date   | pname | quantity |
++--------+------+------------+-------+----------+
+|   1003 | emir | 2021-06-03 | bag   |        2 |
+|   1003 | emir | 2021-06-03 | pen   |        3 |
++--------+------+------------+-------+----------+
+
+----------------------------------------------------------------------------------------------------------
+
+QUESTION 3: 
+
+     
+Display the customer name, product name, invoice date of purchased item ‘pen’.
+
+
+
+QUERY :
+
+mysql> select * from customer;
+
++----+-------+---------------+-----------+-----------+
+| id | name  | address       | city      | ph_no     |
++----+-------+---------------+-----------+-----------+
+|  1 | jan   | bluemoon      | kozhikode | 987654321 |
+|  2 | sanam | rayyan valley | tvm       |  56439321 |
+|  3 | emir  | baithul hubb  | ekm       |  56439321 |
+|  4 | anulf | manzil        | kochi     |  24576788 |
+|  6 | anulf | baithul       | tsy       |      NULL |
+|  7 | lilly | rose villa    | clt       |      NULL |
+|  8 | arc   | rose          | kgm       |      NULL |
+|  9 | aza   | silent valley | clt       |      NULL |
+| 10 | ammu  | skyline       | clt       |      NULL |
+| 11 | anu   | hilite        | clt       |      NULL |
++----+-------+---------------+-----------+-----------+
+
+mysql> select * from invoice_item;
+
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|   1003 |  103 |        2 |
+|   1003 |  102 |        3 |
+|   1006 |  101 |        2 |
++--------+------+----------+
+
+
+mysql> select * from product;
+
++-----+--------+--------+
+| pid | pname  | price  |
++-----+--------+--------+
+| 101 | book   |  56.10 |
+| 102 | pen    |  15.30 |
+| 103 | bag    | 510.00 |
+| 104 | box    | 306.00 |
+| 105 | sheo   | 765.00 |
+| 106 | pencil |  10.20 |
+| 107 | soap   |  50.00 |
++-----+--------+--------+
+
+
+mysql> select * from invoice_master;   
+                                                                   
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|   1001 |       1 | 2022-01-01 |
+|   1003 |       3 | 2021-06-03 |
+|   1004 |       3 | 2022-04-04 |
+|   1005 |       4 | 2021-03-07 |
+|   1006 |       4 | 2021-09-05 |
+|   1007 |       6 | 2018-02-03 |
++--------+---------+------------+
+
+
+
+mysql> select customer.name,product.pname,invoice_master.inv_date from customer inner join invoice_master on customer.id=invoice_master.cust_id join invoice_item on invoice_master.inv_id=invoice_item.inv_id join product on invoice_item.pid=product.pid where product.pname="pen";
+
++------+-------+------------+
+| name | pname | inv_date   |
++------+-------+------------+
+| emir | pen   | 2021-06-03 |
++------+-------+------------+
+
+
+----------------------------------------------------------------------------------------------------------
+
+
+QUESTION 4:  
+
+   
+Display all customer details and invoice details must include customer has not purchased items.
+
+
+QUERY :
+
+
+mysql> select * from customer;
+
++----+-------+---------------+-----------+-----------+
+| id | name  | address       | city      | ph_no     |
++----+-------+---------------+-----------+-----------+
+|  1 | jan   | bluemoon      | kozhikode | 987654321 |
+|  2 | sanam | rayyan valley | tvm       |  56439321 |
+|  3 | emir  | baithul hubb  | ekm       |  56439321 |
+|  4 | anulf | manzil        | kochi     |  24576788 |
+|  6 | anulf | baithul       | tsy       |      NULL |
+|  7 | lilly | rose villa    | clt       |      NULL |
+|  8 | arc   | rose          | kgm       |      NULL |
+|  9 | aza   | silent valley | clt       |      NULL |
+| 10 | ammu  | skyline       | clt       |      NULL |
+| 11 | anu   | hilite        | clt       |      NULL |
++----+-------+---------------+-----------+-----------+
+
+
+mysql> select * from invoice_item;
+
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|   1003 |  103 |        2 |
+|   1003 |  102 |        3 |
+|   1006 |  101 |        2 |
++--------+------+----------+
+
+
+mysql> select * from invoice_master;   
+                                                                   
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|   1001 |       1 | 2022-01-01 |
+|   1003 |       3 | 2021-06-03 |
+|   1004 |       3 | 2022-04-04 |
+|   1005 |       4 | 2021-03-07 |
+|   1006 |       4 | 2021-09-05 |
+|   1007 |       6 | 2018-02-03 |
++--------+---------+------------+
+
+
+mysql> select * from product;
+
++-----+--------+--------+
+| pid | pname  | price  |
++-----+--------+--------+
+| 101 | book   |  56.10 |
+| 102 | pen    |  15.30 |
+| 103 | bag    | 510.00 |
+| 104 | box    | 306.00 |
+| 105 | sheo   | 765.00 |
+| 106 | pencil |  10.20 |
+| 107 | soap   |  50.00 |
++-----+--------+--------+
+
+
+
+mysql>  select customer.name,invoice_master.inv_date,product.pname,invoice_item.quantity from customer left join invoice_master on customer.id=invoice_master.cust_id left join invoice_item on invoice_master.inv_id=invoice_item.inv_id left join product on invoice_item.pid=product.pid;
++-------+------------+-------+----------+
+| name  | inv_date   | pname | quantity |
++-------+------------+-------+----------+
+| emir  | 2021-06-03 | bag   |        2 |
+| emir  | 2021-06-03 | pen   |        3 |
+| anulf | 2021-09-05 | book  |        2 |
+| jan   | 2022-01-01 | NULL  |     NULL |
+| emir  | 2022-04-04 | NULL  |     NULL |
+| anulf | 2021-03-07 | NULL  |     NULL |
+| anulf | 2018-02-03 | NULL  |     NULL |
+| sanam | NULL       | NULL  |     NULL |
+| lilly | NULL       | NULL  |     NULL |
+| arc   | NULL       | NULL  |     NULL |
+| aza   | NULL       | NULL  |     NULL |
+| ammu  | NULL       | NULL  |     NULL |
+| anu   | NULL       | NULL  |     NULL |
++-------+------------+-------+----------+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------
+
+
+
+
