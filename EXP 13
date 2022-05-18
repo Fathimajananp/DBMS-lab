@@ -1,0 +1,275 @@
+                                            Experiment No: 13
+
+                                               TCL COMMANDS
+
+---------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
+
+
+mysql> set autocommit=0;
+
+
+Query OK, 0 rows affected (0.01 sec)
+
+
+mysql> select * from product;
+
+
++-----+--------+--------+
+| pid | pname  | price  |
++-----+--------+--------+
+| 101 | book   |  56.10 |
+| 102 | pen    |  15.30 |
+| 103 | bag    | 510.00 |
+| 104 | box    | 306.00 |
+| 105 | sheo   | 765.00 |
+| 106 | pencil |  10.20 |
+| 107 | soap   |  50.00 |
++-----+--------+--------+
+
+
+QUESTION : 1
+
+
+Commit
+
+
+
+QUERY :
+
+
+mysql> insert into product values(108,'sweets',150);
+
+Query OK, 1 row affected (0.02 sec)
+
+mysql> savepoint a;
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into product values(109,'balloon',120);
+
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint b;
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into product values(110,'cards',110);
+
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint c;
+
+Query OK, 0 rows affected (0.00 sec)
+
+
+mysql> select * from product;
+
++-----+---------+--------+
+| pid | pname   | price  |
++-----+---------+--------+
+| 101 | book    |  56.10 |
+| 102 | pen     |  15.30 |
+| 103 | bag     | 510.00 |
+| 104 | box     | 306.00 |
+| 105 | sheo    | 765.00 |
+| 106 | pencil  |  10.20 |
+| 107 | soap    |  50.00 |
+| 108 | sweets  | 150.00 |
+| 109 | balloon | 120.00 |
+| 110 | cards   | 110.00 |
++-----+---------+--------+
+
+mysql> insert into product values(111,'cup',200);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> select * from product;
++-----+---------+--------+
+| pid | pname   | price  |
++-----+---------+--------+
+| 101 | book    |  56.10 |
+| 102 | pen     |  15.30 |
+| 103 | bag     | 510.00 |
+| 104 | box     | 306.00 |
+| 105 | sheo    | 765.00 |
+| 106 | pencil  |  10.20 |
+| 107 | soap    |  50.00 |
+| 108 | sweets  | 150.00 |
+| 109 | balloon | 120.00 |
+| 110 | cards   | 110.00 |
+| 111 | cup     | 200.00 |
++-----+---------+--------+
+
+----------------------------------------------------------------------------------------------------------
+
+
+QUESTION : 2
+
+
+Rollback
+
+
+QUERY :
+
+mysql> select * from product;
+
++-----+-----------+--------+
+| pid | pname     | price  |
++-----+-----------+--------+
+| 101 | book      |  56.10 |
+| 102 | pen       |  15.30 |
+| 103 | bag       | 510.00 |
+| 104 | box       | 306.00 |
+| 105 | sheo      | 765.00 |
+| 106 | pencil    |  10.20 |
+| 107 | soap      |  50.00 |
+| 108 | sweets    | 150.00 |
+| 109 | balloon   | 120.00 |
+| 110 | cards     | 110.00 |
+| 111 | cup       | 200.00 |
+| 112 | doll      | 250.00 |
+| 113 | toy car   | 350.00 |
+| 114 | toy phone |  80.00 |
++-----+-----------+--------+
+
+mysql> rollback to c;
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from product;
+
++-----+-----------+--------+
+| pid | pname     | price  |
++-----+-----------+--------+
+| 101 | book      |  56.10 |
+| 102 | pen       |  15.30 |
+| 103 | bag       | 510.00 |
+| 104 | box       | 306.00 |
+| 105 | sheo      | 765.00 |
+| 106 | pencil    |  10.20 |
+| 107 | soap      |  50.00 |
+| 108 | sweets    | 150.00 |
+| 109 | balloon   | 120.00 |
+| 110 | cards     | 110.00 |
+| 111 | cup       | 200.00 |
+| 112 | doll      | 250.00 |
+| 113 | toy car   | 350.00 |
+| 114 | toy phone |  80.00 |
++-----+-----------+--------+
+14 rows in set (0.00 sec)
+
+mysql> rollback to b;
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from product;
+
++-----+---------+--------+
+| pid | pname   | price  |
++-----+---------+--------+
+| 101 | book    |  56.10 |
+| 102 | pen     |  15.30 |
+| 103 | bag     | 510.00 |
+| 104 | box     | 306.00 |
+| 105 | sheo    | 765.00 |
+| 106 | pencil  |  10.20 |
+| 107 | soap    |  50.00 |
+| 108 | sweets  | 150.00 |
+| 109 | balloon | 120.00 |
+| 110 | cards   | 110.00 |
+| 111 | cup     | 200.00 |
+| 112 | doll    | 250.00 |
+| 113 | toy car | 350.00 |
++-----+---------+--------+
+13 rows in set (0.00 sec)
+
+mysql> rollback to a;
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from product;
+
++-----+---------+--------+
+| pid | pname   | price  |
++-----+---------+--------+
+| 101 | book    |  56.10 |
+| 102 | pen     |  15.30 |
+| 103 | bag     | 510.00 |
+| 104 | box     | 306.00 |
+| 105 | sheo    | 765.00 |
+| 106 | pencil  |  10.20 |
+| 107 | soap    |  50.00 |
+| 108 | sweets  | 150.00 |
+| 109 | balloon | 120.00 |
+| 110 | cards   | 110.00 |
+| 111 | cup     | 200.00 |
+| 112 | doll    | 250.00 |
++-----+---------+--------+
+
+---------------------------------------------------------------------------------------------------------
+
+
+QUESTION : 3
+
+
+Savepoint
+
+
+QUERY :
+
+
+mysql> insert into product values(112,'doll',250);
+
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint a;
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into product values(113,'toy car',350);
+
+Query OK, 1 row affected (0.01 sec)
+
+mysql> savepoint b;
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into product values(114,'toy phone',80);
+
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint c;
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from product;
+
++-----+-----------+--------+
+| pid | pname     | price  |
++-----+-----------+--------+
+| 101 | book      |  56.10 |
+| 102 | pen       |  15.30 |
+| 103 | bag       | 510.00 |
+| 104 | box       | 306.00 |
+| 105 | sheo      | 765.00 |
+| 106 | pencil    |  10.20 |
+| 107 | soap      |  50.00 |
+| 108 | sweets    | 150.00 |
+| 109 | balloon   | 120.00 |
+| 110 | cards     | 110.00 |
+| 111 | cup       | 200.00 |
+| 112 | doll      | 250.00 |
+| 113 | toy car   | 350.00 |
+| 114 | toy phone |  80.00 |
++-----+-----------+--------+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------
