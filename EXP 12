@@ -39,7 +39,7 @@ mysql> show grants for user1@localhost;
 +-------------------------------------------+
 
 
-mysql> grant insert,select on customer to user1@localhost;
+mysql> grant insert,select on customer to user1@localhost; //INVOICE.CUSTOMER
 
 Query OK, 0 rows affected (0.00 sec)
 
@@ -70,7 +70,7 @@ mysql> show grants for user2@localhost;
 | GRANT USAGE ON *.* TO 'user2'@'localhost' |
 +-------------------------------------------+
 
-mysql> grant update,delete on *.* to user2@localhost;
+mysql> grant update,delete on *.* to user2@localhost; //INVOICE.*
 
 Query OK, 0 rows affected (0.00 sec)
 
@@ -118,3 +118,4 @@ mysql> show grants for user2@localhost;
 
 ---------------------------------------------------------------------------------------------------------
 
+//VERIFIED-CHECK CORRECTION
