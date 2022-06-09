@@ -1,0 +1,66 @@
+                                         Experiment No: 15
+
+                                     PL/SQL PROGRAMS – FUNCTIONS
+----------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------
+
+
+QUESTION :
+
+
+
+Create a function to calculate price_range(low, medium, high) of each product. If price<=5 indicate as low, upto 50 indicate as medium, and above as high.
+
+
+
+QUERY :
+
+
+mysql> create function price_range(price int)
+    -> returns varchar(20)
+    -> deterministic
+    -> begin
+    -> declare price_range varchar(20);
+    -> if price <= 5 then
+    -> set price_range='low';
+    -> else if (price > 5) and (price <=50) then
+    -> set price_range='medium';
+    -> else
+    -> set price_range='high';
+    -> end if;
+    -> end if;
+    -> return (price_range);
+    -> end
+    -> //
+Query OK, 0 rows affected (0.06 sec)
+
+
+
+mysql> delimiter ;
+mysql> select pname,price,price_range(price) from product order by price;
++---------+--------+--------------------+
+| pname   | price  | price_range(price) |
++---------+--------+--------------------+
+| pencil  |  10.20 | medium             |
+| pen     |  15.30 | medium             |
+| soap    |  50.00 | medium             |
+| book    |  56.10 | high               |
+| cards   | 110.00 | high               |
+| balloon | 120.00 | high               |
+| sweets  | 150.00 | high               |
+| cup     | 200.00 | high               |
+| box     | 306.00 | high               |
+| bag     | 510.00 | high               |
+| sheo    | 765.00 | high               |
++---------+--------+--------------------+
+11 rows in set (0.02 sec)
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------
+
+
+
