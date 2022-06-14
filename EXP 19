@@ -1,0 +1,119 @@
+                                             Experiment No: 19
+                                         
+                                          NoSQL- Retrieving data
+---------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
+
+
+NoSQL – RETRIEVING DATA
+
+
+QUESTION : 1    
+
+
+Write a MongoDB query to display the customer documents having city ‘ekm’,’tvm’.
+
+
+QUERY :
+
+
+> db.customer.update({City:"USA"},{$set:{City:"ekm"}})
+
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+
+> db.customer.update({City:"UAE"},{$set:{City:"tvm"}})
+
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+
+
+> db.customer.find({$or:[{"City":"ekm"},{"City":"tvm"}]}).pretty();
+{
+	"_id" : ObjectId("62a81e4f004973122eeac409"),
+	"Name" : "emir",
+	"City" : "tvm",
+	"PhNO" : 8796543233,
+	"Age" : 32
+}
+{
+	"_id" : ObjectId("62a81e90004973122eeac40a"),
+	"Name" : "mehwish",
+	"City" : "ekm",
+	"PhNO" : 7736555117,
+	"Age" : 23
+}
+
+----------------------------------------------------------------------------------------------------------
+
+
+QUESTION : 2 
+
+    
+Write a MongoDB query to display all customer documents who have age >50.
+
+
+QUERY :
+
+
+> db.customer.find({"Age":{$gt:28}}).pretty();
+
+{
+	"_id" : ObjectId("62a81df6004973122eeac408"),
+	"Name" : "jan",
+	"City" : "calicut",
+	"PhNO" : 9876543210,
+	"Age" : 30
+}
+{
+	"_id" : ObjectId("62a81e4f004973122eeac409"),
+	"Name" : "emir",
+	"City" : "tvm",
+	"PhNO" : 8796543233,
+	"Age" : 32
+}
+
+
+
+-----------------------------------------------------------------------------------------------------------
+
+QUESTION : 3
+
+
+Write a MongoDB query to find customer documents who not live in ‘tvm’.
+
+
+QUERY :
+
+
+> db.customer.find({"City":{$ne:"tvm"}}).pretty();
+{
+	"_id" : ObjectId("62a81df6004973122eeac408"),
+	"Name" : "jan",
+	"City" : "calicut",
+	"PhNO" : 9876543210,
+	"Age" : 30
+}
+{
+	"_id" : ObjectId("62a81e90004973122eeac40a"),
+	"Name" : "mehwish",
+	"City" : "ekm",
+	"PhNO" : 7736555117,
+	"Age" : 23
+}
+{
+	"_id" : ObjectId("62a81edd004973122eeac40b"),
+	"Name" : "meha",
+	"City" : "bahrain",
+	"PhNO" : 7356655117,
+	"Age" : 25
+}
+
+
+
+
+---------------------------------------------------------------------------------------------------------
+
+
+
+
+
