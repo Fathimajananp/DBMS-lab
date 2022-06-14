@@ -1,0 +1,160 @@
+                                           Experiment No: 18 
+                                  
+                                         NoSQL- CRUD operations
+----------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------
+
+
+  NoSQL – CRUD
+
+
+QUESTION : 1
+
+
+Write a MongoDB query to create an INVOICE database and collections (CUSTOMER, PRODUCT) and its corresponding documents.
+
+
+QUERY :
+
+> use invoice;
+switched to db invoice
+> db.customer.insert({"Name":"sanam","City":"calicut","PhNo":9847362513,"Age":26})
+WriteResult({ "nInserted" : 1 })
+> db.customer.insert({"Name":"jan","City":"calicut","PhNO":9876543210,"Age":30})
+WriteResult({ "nInserted" : 1 })
+> db.customer.insert({"Name":"emir","City":"UAE","PhNO":8796543233,"Age":32})
+WriteResult({ "nInserted" : 1 })
+> db.customer.insert({"Name":"mehwish","City":"USA","PhNO":7736555117,"Age":23})
+WriteResult({ "nInserted" : 1 })
+> db.customer.insert({"Name":"meha","City":"bahrain","PhNO":7356655117,"Age":25})
+WriteResult({ "nInserted" : 1 })
+
+
+> db.product.insertMany([{"pname":"book","price":40},{"pname":"pen","price":10},{"pname":"pencil","price":5},{"pname":"scale","price":15}])
+{
+	"acknowledged" : true,
+	"insertedIds" : [
+		ObjectId("62a8211d004973122eeac40c"),
+		ObjectId("62a8211d004973122eeac40d"),
+		ObjectId("62a8211d004973122eeac40e"),
+		ObjectId("62a8211d004973122eeac40f")
+	]
+}
+
+
+----------------------------------------------------------------------------------------------------------
+
+QUESTION : 2
+
+
+Write a MongoDB query to find all documents from the collection CUSTOMER
+
+
+QUERY :
+
+
+> db.customer.find().pretty()
+{
+	"_id" : ObjectId("62a81d2e8a6342fe07145327"),
+	"Name" : "sanam",
+	"City" : "calicut",
+	"PhNo" : 9847362513,
+	"Age" : 26
+}
+{
+	"_id" : ObjectId("62a81df6004973122eeac408"),
+	"Name" : "jan",
+	"City" : "calicut",
+	"PhNO" : 9876543210,
+	"Age" : 30
+}
+{
+	"_id" : ObjectId("62a81e4f004973122eeac409"),
+	"Name" : "emir",
+	"City" : "UAE",
+	"PhNO" : 8796543233,
+	"Age" : 32
+}
+{
+	"_id" : ObjectId("62a81e90004973122eeac40a"),
+	"Name" : "mehwish",
+	"City" : "USA",
+	"PhNO" : 7736555117,
+	"Age" : 23
+}
+{
+	"_id" : ObjectId("62a81edd004973122eeac40b"),
+	"Name" : "meha",
+	"City" : "bahrain",
+	"PhNO" : 7356655117,
+	"Age" : 25
+}
+
+
+
+----------------------------------------------------------------------------------------------------------
+
+
+QUESTION : 3
+
+
+Write a MongoDB query to update the city in the collection CUSTOMER.
+
+
+QUERY :
+
+
+> db.customer.update({City:"calicut"},{$set:{City:"england"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+
+> db.customer.findOne({City:"england"})
+{
+	"_id" : ObjectId("62a81d2e8a6342fe07145327"),
+	"Name" : "sanam",
+	"City" : "england",
+	"PhNo" : 9847362513,
+	"Age" : 26
+}
+
+
+---------------------------------------------------------------------------------------------------------
+
+
+QUESTION : 4      
+
+
+Write a MongoDB query to delete the first matched document whose city is “Calicut”.
+
+
+QUERY :
+
+
+> db.customer.update({City:"england"},{$set:{City:"calicut"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+
+
+> db.customer.findOne({City:"calicut"})
+{
+	"_id" : ObjectId("62a81d2e8a6342fe07145327"),
+	"Name" : "sanam",
+	"City" : "calicut",
+	"PhNo" : 9847362513,
+	"Age" : 26
+}
+
+> db.customer.deleteOne({City:"calicut"})
+{ "acknowledged" : true, "deletedCount" : 1 }
+
+
+> db.customer.find()
+{ "_id" : ObjectId("62a81df6004973122eeac408"), "Name" : "jan", "City" : "calicut", "PhNO" : 9876543210, "Age" : 30 }
+{ "_id" : ObjectId("62a81e4f004973122eeac409"), "Name" : "emir", "City" : "UAE", "PhNO" : 8796543233, "Age" : 32 }
+{ "_id" : ObjectId("62a81e90004973122eeac40a"), "Name" : "mehwish", "City" : "USA", "PhNO" : 7736555117, "Age" : 23 }
+{ "_id" : ObjectId("62a81edd004973122eeac40b"), "Name" : "meha", "City" : "bahrain", "PhNO" : 7356655117, "Age" : 25 }
+
+
+----------------------------------------------------------------------------------------------------------
+
+
+
