@@ -1,0 +1,76 @@
+                                           Experiment No: 20
+ 
+                           NoSQL – AGGREGATE FUNCTIONS AND REGULAR EXPRESSIONS
+---------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
+
+
+NoSQL – AGGREGATE FUNCTIONS AND REGULAR EXPRESSIONS
+
+
+QUESTION : 1   
+
+    
+Write a MongoDB query to sort customer details in ascending order of their name.
+
+
+QUERY :
+
+
+> db.customer.find().sort({Name:1})
+
+{ "_id" : ObjectId("62a81e4f004973122eeac409"), "Name" : "emir", "City" : "tvm", "PhNO" : 8796543233, "Age" : 32 }
+{ "_id" : ObjectId("62a81df6004973122eeac408"), "Name" : "jan", "City" : "calicut", "PhNO" : 9876543210, "Age" : 30 }
+{ "_id" : ObjectId("62a81edd004973122eeac40b"), "Name" : "meha", "City" : "bahrain", "PhNO" : 7356655117, "Age" : 25 }
+{ "_id" : ObjectId("62a81e90004973122eeac40a"), "Name" : "mehwish", "City" : "ekm", "PhNO" : 7736555117, "Age" : 23 }
+
+
+
+---------------------------------------------------------------------------------------------------------
+
+QUESTION : 2  
+
+    
+Write a MongoDB query to count number of customers in each city.
+
+
+QUERY :
+
+
+>  db.customer.aggregate([{$group:{_id:"$City",total:{$sum:1}}}])
+
+{ "_id" : "calicut", "total" : 1 }
+{ "_id" : "bahrain", "total" : 1 }
+{ "_id" : "ekm", "total" : 1 }
+{ "_id" : "tvm", "total" : 1 }
+
+
+
+
+---------------------------------------------------------------------------------------------------------
+
+
+QUESTION : 3  
+
+    
+Write a MongoDB query to find minimum and maximum age in each city.
+
+
+QUERY :
+
+
+> db.customer.aggregate([{$group:{_id:"$City",max_Age:{$max:"$Age"},min_Age:{$min:"$Age"}}}])
+
+{ "_id" : "calicut", "max_Age" : 30, "min_Age" : 30 }
+{ "_id" : "bahrain", "max_Age" : 25, "min_Age" : 25 }
+{ "_id" : "ekm", "max_Age" : 23, "min_Age" : 23 }
+{ "_id" : "tvm", "max_Age" : 32, "min_Age" : 32 }
+
+
+
+
+----------------------------------------------------------------------------------------------------------
+
+
+
