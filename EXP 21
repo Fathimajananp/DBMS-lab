@@ -1,0 +1,145 @@
+                                            Experiment No: 21
+
+                                          NoSQL – ADMINISTRATION
+----------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------
+
+
+NoSQL – ADMINISTRATION
+
+
+QUESTION : 1 
+
+     
+Write a MongoDB query to create a user “CUSTOMER1” and grant the read role in the
+INVOICE database.
+
+
+QUERY :
+
+
+> db.createUser({user:"janan",pwd:"123",roles:[{role:"read",db:"invoice"}]})
+
+Successfully added user: {
+	"user" : "janan",
+	"roles" : [
+		{
+			"role" : "read",
+			"db" : "invoice"
+		}
+	]
+}
+
+
+
+
+----------------------------------------------------------------------------------------------------------
+
+
+QUESTION : 2 
+
+     
+Write a MongoDB query to create the backup for the INVOICE database.
+
+
+QUERY :
+
+
+
+ksb@ksb-ThinkCentre-Edge72:~$ sudo mkdir /var/backups/mongobackups
+
+[sudo] password for ksb: 
+
+ksb@ksb-ThinkCentre-Edge72:~$ sudo mongodump --db invoice --out /var/backups/mongobackups
+
+2022-06-14T12:09:58.059+0530	writing invoice.customer to /var/backups/mongobackups/invoice/customer.bson
+2022-06-14T12:09:58.060+0530	writing invoice.product to /var/backups/mongobackups/invoice/product.bson
+2022-06-14T12:09:58.061+0530	done dumping invoice.customer (4 documents)
+2022-06-14T12:09:58.061+0530	done dumping invoice.product (4 documents)
+
+ksb@ksb-ThinkCentre-Edge72:~$ cd /var/backups/mongobackups
+ksb@ksb-ThinkCentre-Edge72:/var/backups/mongobackups$ ls -l
+total 4
+drwxr-xr-x 2 root root 4096 Jun 14 12:09 invoice
+
+
+ksb@ksb-ThinkCentre-Edge72:/var/backups/mongobackups$ cd /var/backups/mongobackups/invoice
+ksb@ksb-ThinkCentre-Edge72:/var/backups/mongobackups/invoice$ ls -l
+total 16
+-rw-r--r-- 1 root root 322 Jun 14 12:09 customer.bson
+-rw-r--r-- 1 root root 175 Jun 14 12:09 customer.metadata.json
+-rw-r--r-- 1 root root 214 Jun 14 12:09 product.bson
+-rw-r--r-- 1 root root 174 Jun 14 12:09 product.metadata.json
+
+
+----------------------------------------------------------------------------------------------------------
+
+
+QUESTION : 3
+
+      
+Write a MongoDB query to restore a particular database or a collection.
+
+
+QUERY :
+
+
+> use invoice;
+switched to db invoice
+
+
+> db.dropDatabase()
+{ "dropped" : "invoice", "ok" : 1 }
+
+ksb@ksb-ThinkCentre-Edge72:~$ sudo mongorestore /var/backups/mongobackups
+
+[sudo] password for ksb: 
+
+2022-06-14T14:21:47.996+0530	preparing collections to restore from
+2022-06-14T14:21:48.005+0530	reading metadata for invoice.product from /var/backups/mongobackups/invoice/product.metadata.json
+2022-06-14T14:21:48.011+0530	reading metadata for invoice.customer from /var/backups/mongobackups/invoice/customer.metadata.json
+2022-06-14T14:21:48.283+0530	restoring invoice.customer from /var/backups/mongobackups/invoice/customer.bson
+2022-06-14T14:21:48.300+0530	finished restoring invoice.customer (4 documents, 0 failures)
+2022-06-14T14:21:48.367+0530	restoring invoice.product from /var/backups/mongobackups/invoice/product.bson
+2022-06-14T14:21:48.379+0530	finished restoring invoice.product (4 documents, 0 failures)
+2022-06-14T14:21:48.380+0530	no indexes to restore for collection invoice.customer
+2022-06-14T14:21:48.380+0530	no indexes to restore for collection invoice.product
+2022-06-14T14:21:48.380+0530	8 document(s) restored successfully. 0 document(s) failed to restore.
+
+ksb@ksb-ThinkCentre-Edge72:~$ mongo
+
+MongoDB shell version v4.4.14
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("0e858ffc-472d-42fa-ae63-d841b48e63cf") }
+MongoDB server version: 4.4.14
+---
+The server generated these startup warnings when booting: 
+        2022-06-14T14:11:07.763+05:30: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine. See http://dochub.mongodb.org/core/prodnotes-filesystem
+        2022-06-14T14:11:15.541+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+---
+---
+        Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+        metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+        The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+        and anyone you share the URL with. MongoDB may use this information to make product
+        improvements and to suggest MongoDB products and deployment options to you.
+
+        To enable free monitoring, run the following command: db.enableFreeMonitoring()
+        To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+---
+
+> show dbs
+
+admin    0.000GB
+config   0.000GB
+invoice  0.000GB
+local    0.000GB
+
+----------------------------------------------------------------------------------------------------------
+
+
+
+
+
