@@ -1,0 +1,93 @@
+                                            Experiment No:  22
+
+                                              SHELL commands
+----------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------
+
+
+NoSQL – SHELL COMMANDS
+
+
+QUESTION : 1 
+
+     
+Write a MongoDB query to create an index for the collection customer using the field customer_name.
+
+
+QUERY :
+
+
+>  db.customer.createIndex({name: 1},{name: "sanam"})
+{
+	"createdCollectionAutomatically" : false,
+	"numIndexesBefore" : 1,
+	"numIndexesAfter" : 2,
+	"ok" : 1
+}
+
+
+> db.customer.getIndexes()
+[
+	{
+		"v" : 2,
+		"key" : {
+			"_id" : 1
+		},
+		"name" : "_id_"
+	},
+	{
+		"v" : 2,
+		"key" : {
+			"name" : 1
+		},
+		"name" : "sanam"
+	}
+]
+
+
+
+---------------------------------------------------------------------------------------------------------
+
+
+QUESTION : 2 
+
+     
+Create two MongoDB replication servers and do the necessary operations.
+
+
+QUERY :
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------
+
+
+QUESTION : 3 
+
+    
+Perform MongoDB sharding.
+
+
+QUERY :
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------
+
+
+
+
+
